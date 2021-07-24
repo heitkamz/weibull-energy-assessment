@@ -61,6 +61,12 @@ class PowerModeler:
         return fitted_power_curve_model
 
     def visualize_model(self, power_model, rho: float):
+        """
+
+        :param power_model: fitted turbine performance model
+        :param rho: air density value to be used in assessment
+        :return: None
+        """
 
         t = self.templates
         df = self.data
@@ -88,6 +94,13 @@ class PowerModeler:
         return
 
     def plot_model_vs_warranted_curve(self, power_model, rho: float):
+
+        """
+
+        :param power_model: fitted turbine performance model
+        :param rho: air density value to be used in assessment
+        :return: None
+        """
         t = self.templates
         wind_speed_array = t.wind_speed_array
         density_array = t.get_constant_density_array(rho=rho)
