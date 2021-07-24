@@ -1,0 +1,7 @@
+pandas
+numpy
+Pint
+matplotlib
+pygam
+scipy
+tqdm
