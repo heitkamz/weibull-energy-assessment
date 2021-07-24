@@ -34,6 +34,11 @@ class WeibullEnergyEstimator:
         return np.sum(annual_gross_energy_array)
 
     def gross_annual_energy_from_model(self, power_model):
+        """
+
+        :param power_model: the fitted model for turbine's performance
+        :return: (float) annual gross energy based on the modeled turbine performance.
+        """
         X = pd.DataFrame({'wind speed': self.ws_array,
                           'density': self.rho_array})
         power_array = power_model.predict(X)
