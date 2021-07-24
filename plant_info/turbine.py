@@ -38,7 +38,6 @@ class Turbine:
         self.tags = self.Tags(self.id)
         self.primary_neighbor_tags = self.Tags(self.primary_neighbor)
         self.secondary_neighbor_tags = self.Tags(self.secondary_neighbor)
-        self.appended_cols = self.AppendedColumns(self.id)
 
     def __set_turbine_info_attr(self):
         db = self.db
@@ -62,10 +61,3 @@ class Turbine:
             self.density = f'{t_id} Air Density [kg/m^3]'
             self.active_power = f' {t_id} Active Power [kW]'
 
-    class AppendedColumns:
-        def __init__(self, turbine: str):
-            self.expected_power: str = f'{turbine} Expected Power [kW]'
-            self.extended_op_state: str = f'{turbine} Operation State'
-            self.betz_power: str = f'{turbine} Betz Limit Power [kW]'
-            self.corrected_ws: str = f'{turbine} Corrected Wind Speed [m/s]'
-            self.ws_corrected_exp_power: str = f'{turbine} Wind Speed Corrected Expected Power [kW]'
