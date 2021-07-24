@@ -9,8 +9,8 @@ class Weibull:
     Reference: https://en.wikipedia.org/wiki/Weibull_distribution
     """
     def __init__(self, a: float, k: float):
-        self.a: float = a  # weibull scale parameter (aka lambda)
-        self.k: float = k  # weibull shape parameter
+        self.a: float = a  # weibull scale parameter ("lambda")
+        self.k: float = k  # weibull shape parameter ("kappa")
 
         self.mean: float = self.a * gamma(1 + 1/self.k)
         self.median: float = self.a * (np.log(2))**(1/self.k)

@@ -4,4 +4,3 @@ Pint
 matplotlib
 pygam
 scipy
-tqdm

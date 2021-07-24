@@ -18,6 +18,12 @@ class CurveInterpolator:
         return
 
     def interpolate_power(self, wind_speed, rho):
+        """
+
+        :param wind_speed: (float or array-like) wind speed values
+        :param rho: (float or array-like) air density values
+        :return: power: (float or array-like) interpolated power values
+        """
         # convert wind speed and density to numpy arrays
         ws = np.array(wind_speed)
         rho = np.array(rho)
