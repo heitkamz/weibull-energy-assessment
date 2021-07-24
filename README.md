@@ -1,5 +1,5 @@
 # weibull-energy-assessment
-This project provides a framework for evaluating the wind resource and energy production given Weibull wind resource parameters at a given site.
+This project provides a framework for evaluating the wind resource and energy production given Weibull wind resource parameters at a turbine site.
 
 ### Background:
 In wind energy applications, the Weibull distribution is often used to describe the wind speed probability distribution. The probability distribution can be converted to an active power distribution by utilizing the reference power curve for a given turbine type. Multiplying the power values, probabilities and a scalar time duration then summing the values returns the expected energy over the time duration. Generally, the time duration used should be 8,766 hours to model annual energy in MWh's to acount for seasonal impacts to the wind resource.
