@@ -2,7 +2,7 @@
 This project provides a framework for evaluating the wind resource and energy production given Weibull wind resource parameters at a turbine site.
 
 ### Background:
-In wind energy applications, the Weibull distribution is often used to describe the wind speed probability distribution. The probability distribution can be converted to an active power distribution by utilizing the reference power curve for a given turbine type. Multiplying the power values, probabilities and a scalar time duration then summing the values returns the expected energy over the time duration. Generally, the time duration used should be 8,766 hours to model annual energy in MWh's to acount for seasonal impacts to the wind resource.
+In wind energy applications, the Weibull distribution is often used to describe the wind speed probability distribution. The probability distribution can be converted to an active power distribution by utilizing the reference power curve for a given turbine type. Summing the element-wise product of the power and probability values and multiplying by a scalar time duration returns the expected energy over the time duration. Generally, the time duration used should be 8,766 hours to model annual energy in megawatt-hours and to acount for seasonal impacts to the wind resource.
 
 The Weibull scale parameter (lambda) and shape parameter (kappa) can be obtained for a given location by utilizing services such as Windnavigator by UL. The parameters assigned to the turbine used in this demonstration were not obtained from a third party source, however. Instead, the values are arbitrary, albeit, realistic. 
 
