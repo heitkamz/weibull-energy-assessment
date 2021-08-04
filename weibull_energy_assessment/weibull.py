@@ -61,7 +61,7 @@ class Weibull:
         cd = self.cdf(self.wind_speed_array)
 
         plt.figure(figsize=(14, 10))
-        plt.plot(self.wind_speed_array, cd * 100, color='k')
+        plt.plot(self.wind_speed_array, cd, color='k')
         plt.grid()
         plt.xlabel('Wind Speed [m/s]')
         plt.ylabel('CDF')
