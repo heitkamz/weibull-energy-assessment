@@ -21,7 +21,7 @@ class WeibullEnergyEstimator:
         :return:
         """
         ws_cdf = self.w.cdf(self.ws_array)
-        ws_bin_frequency = np.diffs(ws_cdf)
+        ws_bin_frequency = np.diff(ws_cdf)
 
         power_step_change = np.diff(power_array)
         average_power = power_array[0:-1] + power_step_change
@@ -29,7 +29,7 @@ class WeibullEnergyEstimator:
         power_density_array = ws_bin_frequency * average_power
 
         energy_array = power_density_array * (8766/1000)
-        
+
         return energy_array
 
     def gross_annual_energy_from_power_curve(self, turbine: Turbine):

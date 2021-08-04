@@ -51,7 +51,7 @@ class Weibull:
         plt.plot(self.wind_speed_array, p)
         plt.grid()
         plt.xlabel('Wind Speed [m/s]')
-        plt.ylabel('Probability [%]')
+        plt.ylabel('PDF')
         plt.title(fr'Probability Density Function for $\lambda$={self.a}; k={self.k}')
         plt.show()
 
@@ -61,10 +61,10 @@ class Weibull:
         cd = self.cdf(self.wind_speed_array)
 
         plt.figure(figsize=(14, 10))
-        plt.plot(self.wind_speed_array, cd, color='k')
+        plt.plot(self.wind_speed_array, cd * 100, color='k')
         plt.grid()
         plt.xlabel('Wind Speed [m/s]')
-        plt.ylabel('Probability [%]')
+        plt.ylabel('CDF')
         plt.title(fr'Cumulative Distribution Function for $\lambda$={self.a}; k={self.k}')
         plt.show()
 
