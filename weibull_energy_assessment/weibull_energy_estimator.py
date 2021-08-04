@@ -1,5 +1,6 @@
 import pandas as pd
 from weibull_energy_assessment import templates
+from weibull_energy_assessment.weibull import Weibull
 from plant_info.turbine import Turbine
 from power_analysis.curve_interpolator import CurveInterpolator
 import numpy as np
@@ -8,18 +9,28 @@ import numpy as np
 class WeibullEnergyEstimator:
     def __init__(self, weibull, rho: float):
         self.t = templates.Templates()
-        self.w = weibull
+        self.w: Weibull = weibull
         self.ws_array = self.t.wind_speed_array
         self.rho_array = self.t.get_constant_density_array(rho=rho)
         self.ws_frequencies = self.w.pdf(x=self.ws_array)
 
     def __get_gross_energy_array(self, power_array):
         """
-        This function calculates gross energy based on an array of power for each wind speed bin.
+        This function uses the Weibull CDF to calculate annual gross energy.
         :param power_array:
         :return:
         """
-        return power_array * self.ws_frequencies * 8766 / 1000
+        ws_cdf = self.w.cdf(self.ws_array)
+        ws_bin_frequency = np.diffs(ws_cdf)
+
+        power_step_change = np.diff(power_array)
+        average_power = power_array[0:-1] + power_step_change
+
+        power_density_array = ws_bin_frequency * average_power
+
+        energy_array = power_density_array * (8766/1000)
+        
+        return energy_array
 
     def gross_annual_energy_from_power_curve(self, turbine: Turbine):
         """

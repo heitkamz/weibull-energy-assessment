@@ -25,7 +25,7 @@ class Weibull:
         :param x: (float or array): random variable
         :return: (float or array) probability of occurrence
         """
-        return ((self.k/self.a) * (x/self.a)**(self.k-1) * np.exp(-(x/self.a)**self.k))/2
+        return (self.k / self.a) * (x / self.a) ** (self.k - 1) * np.exp(-(x / self.a) ** self.k)
 
     def cdf(self, x):
         """
