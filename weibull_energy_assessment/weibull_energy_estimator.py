@@ -4,7 +4,7 @@ from weibull_energy_assessment.weibull import Weibull
 from plant_info.turbine import Turbine
 from power_analysis.curve_interpolator import CurveInterpolator
 import numpy as np
-
+from scipy.integrate import trapezoid
 
 class WeibullEnergyEstimator:
     def __init__(self, weibull, rho: float):
@@ -14,23 +14,22 @@ class WeibullEnergyEstimator:
         self.rho_array = self.t.get_constant_density_array(rho=rho)
         self.ws_frequencies = self.w.pdf(x=self.ws_array)
 
-    def __get_gross_energy_array(self, power_array):
+    def __get_gross_annual_energy(self, power_array):
         """
-        This function uses the Weibull CDF to calculate annual gross energy.
+        This function uses the Weibull PDF and integrates using the trapezoid rule to calculate annual gross energy.
         :param power_array:
-        :return:
+        :return: (float): annual energy in MWh
         """
-        ws_cdf = self.w.cdf(self.ws_array)
-        ws_bin_frequency = np.diff(ws_cdf)
+        # combine power output values and respective probability
+        y = power_array * self.w.pdf(self.ws_array)
 
-        power_step_change = np.diff(power_array)
-        average_power = power_array[0:-1] + power_step_change
+        # integrate using the trapezoid rule
+        p_avg = trapezoid(y=y, x=self.ws_array)
 
-        power_density_array = ws_bin_frequency * average_power
+        # convert power to annual energy in MWh
+        annual_energy = p_avg * 8766 / 1000
 
-        energy_array = power_density_array * (8766/1000)
-
-        return energy_array
+        return annual_energy
 
     def gross_annual_energy_from_power_curve(self, turbine: Turbine):
         """
@@ -40,9 +39,9 @@ class WeibullEnergyEstimator:
         """
         curve_interpolator = CurveInterpolator(turbine_model=turbine.model)
         power_array = curve_interpolator.interpolate_power(wind_speed=self.ws_array, rho=self.rho_array)
-        annual_gross_energy_array = self.__get_gross_energy_array(power_array)
+        annual_gross_energy = self.__get_gross_annual_energy(power_array)
 
-        return np.sum(annual_gross_energy_array)
+        return annual_gross_energy
 
     def gross_annual_energy_from_model(self, power_model):
         """
@@ -54,7 +53,7 @@ class WeibullEnergyEstimator:
                           'density': self.rho_array})
         power_array = power_model.predict(X)
 
-        annual_gross_energy_array = self.__get_gross_energy_array(power_array)
-        return np.sum(annual_gross_energy_array)
+        annual_gross_energy = self.__get_gross_annual_energy(power_array)
+        return annual_gross_energy
 
 
