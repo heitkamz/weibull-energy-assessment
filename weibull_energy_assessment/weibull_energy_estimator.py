@@ -3,8 +3,8 @@ from weibull_energy_assessment import templates
 from weibull_energy_assessment.weibull import Weibull
 from plant_info.turbine import Turbine
 from power_analysis.curve_interpolator import CurveInterpolator
-import numpy as np
 from scipy.integrate import trapezoid
+
 
 class WeibullEnergyEstimator:
     def __init__(self, weibull, rho: float):
